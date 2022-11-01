@@ -1,4 +1,4 @@
-base_packages=('filesystem' 'busybox' 'musl')
+base_packages=('filesystem' 'musl' 'busybox')
 packages=('musl')
 
 ports_url="https://github.com/define-os/ports/archive/master.tar.gz"

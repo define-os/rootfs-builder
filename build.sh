@@ -9,7 +9,7 @@ cd $SCRIPT_DIR
 . ./config.sh
 
 prepare_dirs() {
-    [ -d "rootfs" ] && rm -rf rootfs
+    [ -d "rootfs" ] && sudo rm -rf rootfs
     mkdir rootfs
 }
 
@@ -53,6 +53,14 @@ install_packages() {
         sudo chroot "${SCRIPT_DIR}/rootfs" /bin/env PATH="/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin" /usr/bin/sh ./build.sh || err 2 "Package $pkg failed build with code $?"
     done
 }
+create_rootfs() {
+    sudo chown -R root:root rootfs
+    mksquashfs rootfs rootfs.sqfs
+}
+cleanup() {
+    sudo rm -rf "rootfs"
+    sudo rm -rf "$ports_extracted_dir"
+}
 
 err() {
     echo "[ERROR] $2"
@@ -72,5 +80,6 @@ install_base_packages
 chroot_prepare
 install_packages
 chroot_cleanup
-# create_rootfs
+create_rootfs
+cleanup
 cd $CURR_PATH

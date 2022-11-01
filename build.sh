@@ -41,7 +41,7 @@ chroot_cleanup() {
         sudo umount ${SCRIPT_DIR}/rootfs/$dir
     done
     sudo rm -rf ${SCRIPT_DIR}/rootfs/build.sh
-    #sudo rm -rf ${SCRIPT_DIR}/rootfs/ports
+    sudo rm -rf ${SCRIPT_DIR}/rootfs/ports
 }
 install_packages() {
     cp -r $ports_extracted_dir ${SCRIPT_DIR}/rootfs/ports

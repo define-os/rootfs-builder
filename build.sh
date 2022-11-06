@@ -34,7 +34,10 @@ chroot_prepare() {
     sudo mount -t sysfs sysfs       ${SCRIPT_DIR}/rootfs/sys
     sudo mount -t tmpfs tmpfs       ${SCRIPT_DIR}/rootfs/run
     sudo mount -t tmpfs tmpfs       ${SCRIPT_DIR}/rootfs/tmp
-    sudo rm -rf                     ${SCRIPT_DIR}/rootfs/usr/ports/packages.db
+    packages_db = ${SCRIPT_DIR}/rootfs/usr/ports/packages.db
+    grep -v 'busybox' $packages_db > $packages_db
+    grep -v 'musl' $packages_db > $packages_db
+    grep -v 'make' $packages_db > $packages_db
 }
 chroot_cleanup() {
     for dir in proc dev sys run tmp; do
